@@ -1,0 +1,113 @@
+.wrap {
+    width: 80%;
+    margin: auto;
+}
+
+.wrap:after, form div:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 30px;
+    text-align: center;
+}
+
+table {
+    border: 1px solid #eee;
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+table td{
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+
+table tbody tr:nth-child(odd){
+    background: #fff;
+}
+
+table tbody tr:nth-child(even){
+    background: #F7F7F7;
+}
+
+
+form {
+    float: left;
+    padding: 3px 1px;
+}
+
+form div {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-wrapper {
+    background-color: #f7f7f7;
+    padding: 10px 30px;
+}
+
+input[type=text] {
+    width: 97%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+label {
+    padding: 5px 0px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.form-wrapper input[type=submit] {
+    background-color: #4CAF50;
+    border-color: #42b247;
+    color: white;
+    padding: 1px 12px;
+}
+
+.form-wrapper input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.form-wrapper form {
+    float: inherit;
+}
+
+.buttons {
+    width: 50px;
+}
+
+.buttons form {
+    visibility: hidden;
+}
+
+.user-row:hover {
+    background: #f1f1f1;
+}
+
+.user-row:hover .buttons form {
+    visibility: visible;
+}
+
+.error {
+    color: #ba3939;
+    background: #ffe0e0;
+    border: 1px solid #a33a3a;
+    padding: 10px;
+    margin: 10px 0px;
+}
