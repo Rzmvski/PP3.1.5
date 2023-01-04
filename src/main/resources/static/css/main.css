@@ -1,6 +1,7 @@
 .wrap {
     width: 80%;
     margin: auto;
+    background-color: #f7f7f7;
 }
 
 .wrap:after, form div:after {
@@ -56,11 +57,10 @@ form div {
 }
 
 .form-wrapper {
-    background-color: #f7f7f7;
     padding: 10px 30px;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
     width: 97%;
     padding: 6px;
     border: 1px solid #ccc;

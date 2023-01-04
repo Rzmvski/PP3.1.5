@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Edit user</title>
@@ -7,9 +7,30 @@
 </head>
 <body>
 <div class="wrap">
+    <header sec:authorize="isAuthenticated()">
+        <div>
+            Logged user: <span sec:authentication="name">#username</span>
+            Roles: <span sec:authentication="principal.authorities">#roles</span>
+        </div>
+        <input type="button" value="Profile" onclick="window.location.href='/user'"/>
+        <input sec:authorize="hasRole('ADMIN')" type="button" value="Admin page" onclick="window.location.href='/admin'">
+        <form th:action="@{/logout}" th:method="POST">
+            <input type="submit" value="Logout"/>
+        </form>
+    </header>
     <h1>Edit user</h1>
     <div class="form-wrapper">
-        <form th:method="PATCH" th:action="@{/user_{id}(id=${user.getId()})}" th:object="${user}">
+        <form th:method="PATCH" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}">
+            <div class="main_info">
+                <label for="username">Username:</label>
+                <br/>
+                <input type="text" th:field="*{username}" id="username" required/>
+                <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                <label for="password">Password:</label>
+                <br/>
+                <input id="password" th:field="*{password}" type="password" required/>
+                <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
             <div>
                 <label for="first_name">First name:</label>
                 <br/>

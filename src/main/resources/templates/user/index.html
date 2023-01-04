@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div class="wrap">
+    <header sec:authorize="isAuthenticated()">
+        <div>
+            Logged user: <span sec:authentication="name">#username</span>
+            Roles: <span sec:authentication="principal.authorities">#roles</span>
+        </div>
+        <input sec:authorize="hasRole('ADMIN')" type="button" value="Admin page" onclick="window.location.href='/admin'">
+        <form th:action="@{/logout}" th:method="POST">
+            <input type="submit" value="Logout"/>
+        </form>
+    </header>
+    <h1>User, welcome spring boot security page!</h1>
+    <div class="form-wrapper">
+        <table th:block th:each="user : ${user}">
+            <tr>
+                <td>Username</td>
+                <td th:text="${user.getUsername()}">
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>*****</td>
+            </tr>
+            <tr>
+                <td>First name</td>
+                <td th:text="${user.getFirstName()}">
+            </tr>
+            <tr>
+                <td>Last name</td>
+                <td th:text="${user.getLastName()}">
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td th:text="${user.getAge()}">
+            </tr>
+            <tr>
+                <td>email</td>
+                <td th:text="${user.getEmail()}">
+            </tr>
+        </table>
+        <form th:method="GET" th:action="@{/user/{id}/edit(id=${user.getId()})}">
+            <input type="submit" value="edit"/>
+        </form>
+        <form th:method="DELETE" th:action="@{/user/{id}(id=${user.getId()})}">
+            <input type="submit" value="delete account"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
