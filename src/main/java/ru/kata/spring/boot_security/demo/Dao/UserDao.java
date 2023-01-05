@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.Dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import ru.kata.spring.boot_security.demo.Entities.User;
 
 import java.util.List;
@@ -13,5 +12,5 @@ public interface UserDao {
     Optional<User> getUserByUsername(String username);
     void delete(Long id);
 
-    void update(Long id, User user);
+    void update(User user);
 }

@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.Dao;
 
 
-import net.bytebuddy.dynamic.DynamicType;
 import ru.kata.spring.boot_security.demo.Entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,9 +27,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserById(Long id) {
-        TypedQuery<User> query = entityManager.createQuery("select u from User u where id = :id", User.class)
-                .setParameter("id", id);
-        return query.getSingleResult();
+        return entityManager.find(User.class, id);
     }
     @Override
     public Optional<User> getUserByUsername(String username) {
@@ -45,14 +42,7 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public void update(Long id, User updatedUser) {
-        User user = getUserById(id);
-        user.setUsername(updatedUser.getUsername());
-        user.setPassword(updatedUser.getPassword());
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setAge(updatedUser.getAge());
-        user.setEmail(updatedUser.getEmail());
-        user.setRoles(updatedUser.getRoles());
+    public void update(User user) {
+        entityManager.merge(user);
     }
 }

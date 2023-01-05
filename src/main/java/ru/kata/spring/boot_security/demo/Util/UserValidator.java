@@ -1,10 +1,8 @@
 package ru.kata.spring.boot_security.demo.Util;
 
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import ru.kata.spring.boot_security.demo.Entities.User;
 import ru.kata.spring.boot_security.demo.Service.UserService;

@@ -55,6 +55,13 @@
                 <input type="text" th:field="*{email}" id="email" required/>
                 <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
+            <div sec:authorize="hasRole('ADMIN')">
+                <label for="roles" th:field="*{roles}">Roles:</label>
+                <br/>
+                <th:block th:each="role : ${roles}">
+                    <input type="checkbox" th:field="*{roles}" th:value="${role.getName()}" th:text="${role.getName()}" id="roles">
+                </th:block>
+                </div>
             <input type="submit" value="edit"/>
             <input type="button" value="escape" onclick="window.location.href='/'"/>
         </form>

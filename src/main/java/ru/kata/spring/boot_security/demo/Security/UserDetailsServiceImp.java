@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.Dao.UserDao;
 import ru.kata.spring.boot_security.demo.Entities.User;
 
-import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImp implements org.springframework.security.core.userdetails.UserDetailsService {

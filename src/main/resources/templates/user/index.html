@@ -18,7 +18,7 @@
     </header>
     <h1>User, welcome spring boot security page!</h1>
     <div class="form-wrapper">
-        <table th:block th:each="user : ${user}">
+        <table th:block th:each="user : ${user.get()}">
             <tr>
                 <td>Username</td>
                 <td th:text="${user.getUsername()}">
@@ -45,10 +45,10 @@
                 <td th:text="${user.getEmail()}">
             </tr>
         </table>
-        <form th:method="GET" th:action="@{/user/{id}/edit(id=${user.getId()})}">
+        <form th:method="GET" th:action="@{/user/{id}/edit(id=${user.get().getId()})}">
             <input type="submit" value="edit"/>
         </form>
-        <form th:method="DELETE" th:action="@{/user/{id}(id=${user.getId()})}">
+        <form th:method="DELETE" th:action="@{/user/{id}(id=${user.get().getId()})}">
             <input type="submit" value="delete account"/>
         </form>
     </div>

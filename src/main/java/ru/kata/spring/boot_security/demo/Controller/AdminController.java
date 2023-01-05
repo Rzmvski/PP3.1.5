@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.Entities.Role;
 import ru.kata.spring.boot_security.demo.Entities.User;
 import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
@@ -40,6 +39,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/add";
         }
+        userService.setUserRoles(user);
         userService.add(user);
         return "redirect:/admin";
     }
@@ -57,7 +57,8 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/edit";
         }
-        userService.update(id, user);
+        userService.setUserRoles(user);
+        userService.update(user);
         return "redirect:/admin";
     }
 

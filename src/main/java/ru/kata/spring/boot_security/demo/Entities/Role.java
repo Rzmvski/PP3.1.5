@@ -6,22 +6,24 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+}
+)
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Enumerated(EnumType.STRING)
+
     @Column(name = "name")
-    private EnumRoles name;
-    @Transient
+    private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
     public Role() {
 
     }
-    public Role(EnumRoles name) {
-        this.id = id;
+    public Role(String name) {
         this.name = name;
     }
 
@@ -33,11 +35,11 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public EnumRoles getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(EnumRoles name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -51,11 +53,11 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return String.valueOf(getName());
+        return name;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(getName());
+        return name;
     }
 }

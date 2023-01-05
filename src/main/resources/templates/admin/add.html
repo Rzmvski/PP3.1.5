@@ -28,7 +28,7 @@
                 <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
                 <label for="password">Password:</label>
                 <br/>
-                <input type="text" th:field="*{password}" id="password" required/>
+                <input type="password" th:field="*{password}" id="password" required/>
                 <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
             <div>
@@ -55,11 +55,12 @@
                 <input type="text" th:field="*{email}" id="email" required/>
                 <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
-            <div sec:authorize="hasRole('ADMIN')">
-                <label for="roles" th:field="*{roles}">Roles:</label>
+            <div>
+                <label for="roles">Roles:</label>
                 <br/>
-                <input id="roles" th:each="role : ${roles}" th:field="*{roles}" th:text="${role.getName()}"
-                       th:value="${role}" type="checkbox">
+                <input type="checkbox" id="roles" th:name="roles"
+                       th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}"></option>
+                </input>
             </div>
             <input type="submit" value="create"/>
             <input type="button" value="escape" onclick="window.location.href='/admin'"/>

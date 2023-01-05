@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.Entities.EnumRoles;
 import ru.kata.spring.boot_security.demo.Entities.User;
 import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
@@ -44,7 +43,7 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        user.setRoles(roleService.findByName(EnumRoles.ROLE_USER).stream().collect(Collectors.toSet()));
+        user.setRoles(roleService.findByName("ROLE_USER").stream().collect(Collectors.toSet()));
         userService.add(user);
         return "redirect:/user";
     }
