@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.Entities.User;
 import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
+import ru.kata.spring.boot_security.demo.Util.UserValidator;
 
 import java.util.List;
 
@@ -17,27 +18,24 @@ import java.util.List;
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
-    public AdminController(UserService userService, RoleService roleService) {
+    private final UserValidator userValidator;
+    public AdminController(UserService userService, RoleService roleService, UserValidator userValidator) {
         this.userService = userService;
         this.roleService = roleService;
+        this.userValidator = userValidator;
     }
     @GetMapping("")
-    public String index(Model model) {
+    public String index(@ModelAttribute("user") User user, Model model) {
         List<User> users = userService.getAllUsers();
+        model.addAttribute("roles", roleService.getAllRoles());
         model.addAttribute("users", users);
         return "admin/index";
     }
-
-    //-----Create ------
-    @GetMapping("/add")
-    public String add(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/add";
-    }
     @PostMapping("/")
     public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "admin/add";
+            return "admin/index";
         }
         userService.setUserRoles(user);
         userService.add(user);
@@ -49,13 +47,14 @@ public class AdminController {
     public String edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/edit";
+        return "admin/index";
     }
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") Long id) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "admin/edit";
+            return "admin/index";
         }
         userService.setUserRoles(user);
         userService.update(user);
