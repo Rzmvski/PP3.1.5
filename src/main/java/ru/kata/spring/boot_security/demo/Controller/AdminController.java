@@ -32,7 +32,7 @@ public class AdminController {
         return "admin/index";
     }
     @PostMapping("/")
-    public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String save(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "admin/index";
@@ -42,17 +42,9 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    //--------Edit---------
-    @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/index";
-    }
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") Long id) {
-        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "admin/index";
         }

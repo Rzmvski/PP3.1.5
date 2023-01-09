@@ -11,17 +11,18 @@
           crossorigin="anonymous">
 </head>
 <body>
-<div class="container-fluid text-center">
+<div class="container-fluid text-center bg-light vh-100">
     <div class="row d-flex justify-content-center">
-        <div class="col-4">
+        <div class="col-4 m-5">
             <form method="POST" action="/login">
                 <h2>Please sign in</h2>
                 <input class="form-control" type="text" autofocus required
                        name="username" placeholder="Username">
-                <input class="form-control" type="password" required
+                <input class="form-control my-2" type="password" required
                        name="password" placeholder="Password">
-<!--                <div class="row form-text text-danger" th: th:if="${param.err}" th:errors="${param.error}">-->
-<!--                </div>-->
+                <div class="form-text text-danger" th:if="${param.error}">
+                    Invalid login or password
+                </div>
                 <input class="btn btn-primary w-100" type="submit" value="Sign in">
             </form>
         </div>

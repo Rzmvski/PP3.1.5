@@ -26,7 +26,7 @@
             </div>
         </nav>
     </div>
-    <div class="row h-100">
+    <div class="row vh-100">
         <div class="col-2">
             <div class="row">
                 <nav class="nav flex-column nav-pills">
@@ -101,54 +101,54 @@
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-center fw-bold">
-                                                        <form th:method="PATCH"
+                                                        <form th:method="PATCH" th:object="${user}"
                                                               th:action="@{/admin/{id}(id=${user.id})}"
                                                               th:id="${'editForm' + user.id}">
                                                             <label class="form-label" for="modal-id">ID:</label>
-                                                            <input class="form-control" type="text" name="id"
+                                                            <input class="form-control" type="text" th:name="id"
                                                                    th:value="${user.id}" id="modal-id" disabled>
                                                             <label class="form-label"
                                                                    for="modal-username">Username:</label>
-                                                            <input class="form-control" type="text" name="username"
+                                                            <input class="form-control" type="text" th:name="username"
                                                                    th:value="${user.username}" id="modal-username"
                                                                    required/>
-                                                            <!--                                                            <div class="error" th:if="${#fields.hasErrors('username')}"-->
-                                                            <!--                                                                 th:errors="*{username}"></div>-->
+                                                            <div class="form-text text-danger" th:if="${#fields.hasErrors('username')}"
+                                                                 th:errors="*{username}"></div>
                                                             <label class="form-label"
                                                                    for="modal-password">Password:</label>
                                                             <input class="form-control" type="password"
-                                                                   name="password" id="modal-password"
+                                                                   th:name="password" id="modal-password"
                                                                    required/>
-                                                            <!--                                                            <div class="error" th:if="${#fields.hasErrors('password')}"-->
-                                                            <!--                                                                 th:errors="*{password}"></div>-->
+                                                            <div class="form-text text-danger" th:if="${#fields.hasErrors('password')}"
+                                                                 th:errors="*{password}"></div>
                                                             <label class="form-label" for="modal-first_name">First
                                                                 name:</label>
-                                                            <input class="form-control" type="text" name="firstName"
+                                                            <input class="form-control" type="text" th:name="firstName"
                                                                    th:value="${user.firstName}" id="modal-first_name"
                                                                    required/>
-                                                            <!--                                                            <div class="error" th:if="${#fields.hasErrors('firstName')}"-->
-                                                            <!--                                                                 th:errors="*{firstName}"></div>-->
+                                                            <div class="form-text text-danger" th:if="${#fields.hasErrors('firstName')}"
+                                                                 th:errors="*{firstName}"></div>
                                                             <label class="form-label" for="modal-last_name">Last
                                                                 name:</label>
-                                                            <input class="form-control" type="text" name="lastName"
+                                                            <input class="form-control" type="text" th:name="lastName"
                                                                    th:value="${user.lastName}" id="modal-last_name"
                                                                    required/>
-                                                            <!--                                                            <div class="error" th:if="${#fields.hasErrors('lastName')}"-->
-                                                            <!--                                                                 th:errors="*{lastName}"></div>-->
+                                                            <div class="form-text text-danger" th:if="${#fields.hasErrors('lastName')}"
+                                                                 th:errors="*{lastName}"></div>
                                                             <label class="form-label" for="modal-age">Age:</label>
-                                                            <input class="form-control" type="text" name="age"
+                                                            <input class="form-control" type="text" th:name="age"
                                                                    th:value="${user.age}" id="modal-age" required/>
-                                                            <!--                                                            <div class="error" th:if="${#fields.hasErrors('age')}"-->
-                                                            <!--                                                                 th:errors="*{age}"></div>-->
+                                                            <div class="form-text text-danger" th:if="${#fields.hasErrors('age')}"
+                                                                 th:errors="*{age}"></div>
                                                             <label class="form-label" for="modal-email">Email:</label>
-                                                            <input class="form-control" type="text" name="email"
+                                                            <input class="form-control" type="text" th:name="email"
                                                                    th:value="${user.email}" id="modal-email" required/>
-                                                            <!--                                                            <div class="error" th:if="${#fields.hasErrors('email')}"-->
-                                                            <!--                                                                 th:errors="*{email}"></div>-->
+                                                            <div class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                                                                 th:errors="*{email}"></div>
                                                             <label class="form-label" for="modal-roles"
                                                                    th:value="${user.roles}">Roles:</label>
-                                                            <select class="form-select" id="modal-roles" name="roles"
-                                                                    size="2" multiple>
+                                                            <select class="form-select" id="modal-roles" th:name="roles"
+                                                                    multiple="multiple" size="2" aria-label="role">
                                                                 <option th:each="role : ${roles}"
                                                                         th:value="${role.name}"
                                                                         th:text="${role.toString()}"
@@ -251,38 +251,40 @@
                             <form th:method="POST" th:action="@{/admin/}" th:object="${user}">
                                 <label class="form-label" for="username">Username:</label>
                                 <input class="form-control" type="text" th:field="*{username}" id="username" required/>
-                                <div class="error" th:if="${#fields.hasErrors('username')}"
+                                <div class="form-text text-danger" th:if="${#fields.hasErrors('username')}"
                                      th:errors="*{username}"></div>
 
                                 <label class="form-label" for="password">Password:</label>
                                 <input class="form-control" type="password" th:field="*{password}" id="password"
                                        required/>
-                                <div class="error" th:if="${#fields.hasErrors('password')}"
+                                <div class="form-text text-danger" th:if="${#fields.hasErrors('password')}"
                                      th:errors="*{password}"></div>
 
                                 <label class="form-label" for="first_name">First name:</label>
                                 <input class="form-control" type="text" th:field="*{firstName}" id="first_name"
                                        required/>
-                                <div class="error" th:if="${#fields.hasErrors('firstName')}"
+                                <div class="form-text text-danger" th:if="${#fields.hasErrors('firstName')}"
                                      th:errors="*{firstName}"></div>
 
                                 <label class="form-label" for="last_name">Last name:</label>
                                 <input class="form-control" type="text" th:field="*{lastName}" id="last_name" required/>
-                                <div class="error" th:if="${#fields.hasErrors('lastName')}"
+                                <div class="form-text text-danger" th:if="${#fields.hasErrors('lastName')}"
                                      th:errors="*{lastName}"></div>
 
                                 <label class="form-label" for="age">Age:</label>
                                 <input class="form-control" type="text" th:field="*{age}" id="age" required/>
-                                <div class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+                                <div class="form-text text-danger" th:if="${#fields.hasErrors('age')}"
+                                     th:errors="*{age}"></div>
 
                                 <label class="form-label" for="email">Email:</label>
                                 <input class="form-control" type="text" th:field="*{email}" id="email" required/>
-                                <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                <div class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                                     th:errors="*{email}"></div>
 
                                 <label class="form-label" for="roles">Roles:</label>
                                 <select class="form-select" id="roles" th:name="roles" multiple>
                                     <option th:each="role : ${roles}" th:value="${role.name}"
-                                            th:text="${role.name}"></option>
+                                            th:text="${role.toString()}"></option>
                                 </select>
                                 <input class="btn btn-success" type="submit" value="Add new user"/>
                             </form>
