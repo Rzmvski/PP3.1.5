@@ -10,72 +10,65 @@
           crossorigin="anonymous">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="navbar navbar-dark bg-dark">
-                <div class="text-white fs-6 ps-4">
-                    <span class="fw-bold" sec:authentication="principal.username">#username</span>
-                    with roles: <span th:each="authority : ${#authentication.getAuthorities()}"
-                                      th:text="${authority.getAuthority().replaceFirst('ROLE_', '') + ' '}">#roles</span>
-                </div>
-                <div>
-                    <form th:action="@{/logout}" th:method="POST">
-                        <input class="btn btn-dark text-secondary" type="submit" value="Logout"/>
-                    </form>
-                </div>
-            </nav>
-        </div>
-        <div class="row vh-100">
-            <div class="col-2">
-                <div class="row">
-                    <nav class="nav flex-column nav-pills">
-                        <a class="nav-link" href="/admin" sec:authorize="hasRole('ADMIN')">Admin</a>
-                        <a class="nav-link active" href="/user">User</a>
-                    </nav>
-                </div>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="text-white fs-6 ps-4">
+                <span class="fw-bold" sec:authentication="principal.username">#username</span>
+                with roles: <span th:each="authority : ${#authentication.getAuthorities()}"
+                                  th:text="${authority.getAuthority().replaceFirst('ROLE_', '') + ' '}">#roles</span>
             </div>
+            <div>
+                <form th:action="@{/logout}" th:method="POST">
+                    <input class="btn btn-dark text-secondary" type="submit" value="Logout"/>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <div class="row vh-100">
+        <div class="col-2">
+            <div class="row">
+                <nav class="nav flex-column nav-pills">
+                    <a class="nav-link" href="/admin" sec:authorize="hasRole('ADMIN')">Admin</a>
+                    <a class="nav-link active" href="/user">User</a>
+                </nav>
+            </div>
+        </div>
 
-            <div class="col-10 bg-light">
-                <h1>User information page</h1>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">About user</h4>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">First name</th>
-                                <th scope="col">Last name</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Roles</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row" th:text="${user.get().id}"></th>
-                                <td th:text="${user.get().username}"></td>
-                                <td th:text="${user.get().firstName}"></td>
-                                <td th:text="${user.get().lastName}"></td>
-                                <td th:text="${user.get().age}"></td>
-                                <td th:text="${user.get().email}"></td>
-                                <td>
-                                    <th:block th:each="role : ${user.get().roles}" th:text="${role.toString() + ' '}">
-                                    </th:block>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="col-10 bg-light">
+            <h1>User information page</h1>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">About user</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">First name</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Roles</th>
+                        </tr>
+                        </thead>
+                        <tbody id="user-info">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-            crossorigin="anonymous"></script>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/user_info_loader.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
 </html>
