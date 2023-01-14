@@ -9,7 +9,7 @@ async function getData() {
 async function buildPage(user, table) {
     let roles = [];
     for (let role of user.roles) {
-        roles.push(role.name);
+        roles.push(' ' + role.name.toString().replaceAll('ROLE_', ''));
     }
     let tableRow = document.createElement('tr');
     tableRow.innerHTML = '<td>' + user.id + '</td>' +

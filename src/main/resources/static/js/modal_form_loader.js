@@ -1,8 +1,15 @@
 const modalForm = document.getElementById('modalForm');
+
+async function getUser(id) {
+    const url = 'api/user/' + id;
+    let response = await fetch(url);
+    return response.json();
+}
 async function editUser(id) {
 
     let data = await getUser(id);
-    const { elements } = document.querySelector('#modalForm')
+
+    const { elements } = modalForm;
 
     const editTitle = document.getElementById('modal-title');
     editTitle.innerHTML = 'Edit user';
@@ -13,7 +20,7 @@ async function editUser(id) {
 
     for (const [ key, value ] of Object.entries(data) ) {
         const field = elements.namedItem(key);
-        if (key !== 'id') {
+        if (key !== 'id' && field !== null) {
             field.removeAttribute('disabled');
         }
         if (key !== 'password') {
@@ -31,6 +38,47 @@ async function editUser(id) {
         }
     }
 }
+
+async function deleteUser(id) {
+
+    let data = await getUser(id);
+    const { elements } = modalForm;
+
+    const deleteTitle = document.getElementById('modal-title');
+    deleteTitle.innerHTML = 'Delete user';
+    const deleteButton = document.getElementById('modal-submit');
+    deleteButton.innerHTML = 'Delete';
+
+
+    modalForm.setAttribute('action', 'api/user/' + id);
+    modalForm.addEventListener("submit", deleteData);
+
+    let fields = modalForm.elements;
+    for (let field of fields) {
+        if (field !== document.getElementById('modal-submit')) {
+            field.setAttribute('disabled', 'disabled');
+        }
+    }
+
+
+    for (const [ key, value ] of Object.entries(data) ) {
+        const field = elements.namedItem(key);
+        if (key !== 'password') {
+            field && (field.value = value);
+        }
+        if (key === 'roles') {
+            let options = Array.from(field);
+            for (let role of value) {
+                for (let option of options) {
+                    if (option.value === role.name) {
+                        option.selected = true;
+                    }
+                }
+            }
+        }
+    }
+}
+
 async function patchData(event) {
     event.preventDefault();
 
@@ -38,13 +86,6 @@ async function patchData(event) {
     const url = form.action;
 
     const formData = new FormData(form);
-    await sendData(url, formData);
-
-    form.reset();
-    $('#close').click();
-    await tableBuilder();
-}
-async function sendData(url, formData) {
     let object = {};
     formData.forEach((value, key) => {
         if (key !== 'roles') {
@@ -73,4 +114,26 @@ async function sendData(url, formData) {
     await fetch(url, fetchOptions);
 
 
+
+    form.reset();
+    $('#close').click();
+    await tableBuilder();
+}
+
+async function deleteData(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const url = form.action;
+
+
+    const fetchOptions = {
+        method: "DELETE",
+    };
+
+    await fetch(url, fetchOptions);
+
+    form.reset();
+    $('#close').click();
+    await tableBuilder();
 }
