@@ -61,7 +61,7 @@ public class Rest {
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }
         userService.setUserRoles(user);
-        userService.update(user);
+        userService.update(id, user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

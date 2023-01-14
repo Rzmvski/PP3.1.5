@@ -15,9 +15,9 @@
     <div class="row">
         <nav class="navbar navbar-dark bg-dark">
             <div class="text-white fs-6 ps-4">
-                <span class="fw-bold" sec:authentication="principal.username">#username</span>
-                with roles: <span th:each="authority : ${#authentication.getAuthorities()}"
-                                  th:text="${authority.getAuthority().replaceFirst('ROLE_', '') + ' '}">#roles</span>
+                <span class="fw-bold" th:text="${myUser.getUsername()}">#username</span>
+                with roles: <span th:each="authority : ${myUser.getAuthorities()}"
+                                  th:text="${' ' + authority.getAuthority().toString().replaceAll('ROLE_', '')}">#roles</span>
             </div>
             <div>
                 <form th:action="@{/logout}" th:method="POST">
@@ -178,14 +178,12 @@
                     <input class="form-control" type="text" name="email" id="modal-email" required/>
 <!--                    <div class="form-text text-danger" th:if="${#fields.hasErrors('email')}"-->
 <!--                         th:errors="*{email}"></div>-->
-                    <label class="form-label" for="modal-roles"
-                           th:value="${user.roles}">Roles:</label>
+                    <label class="form-label" for="modal-roles">Roles:</label>
                     <select class="form-select" id="modal-roles" name="roles"
                             multiple="multiple" size="2" aria-label="role">
                         <option th:each="role : ${roles}"
                                 th:value="${role.name}"
-                                th:text="${role.toString()}"
-                                th:selected="${user.roles.contains(role)}"></option>
+                                th:text="${role.toString()}"></option>
                     </select>
                 </form>
             </div>

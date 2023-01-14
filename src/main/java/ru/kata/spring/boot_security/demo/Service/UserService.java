@@ -14,5 +14,5 @@ public interface UserService {
     void setUserRoles(User user);
     Optional<User> getUserByUsername(String username);
     void delete(Long id);
-    void update(User user);
+    void update(Long id, User user);
 }

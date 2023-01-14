@@ -14,9 +14,9 @@
     <div class="row">
         <nav class="navbar navbar-dark bg-dark">
             <div class="text-white fs-6 ps-4">
-                <span class="fw-bold" sec:authentication="principal.username">#username</span>
-                with roles: <span th:each="authority : ${#authentication.getAuthorities()}"
-                                  th:text="${authority.getAuthority().replaceFirst('ROLE_', '') + ' '}">#roles</span>
+                <span class="fw-bold" th:text="${myUser.getUsername()}">#username</span>
+                with roles: <span th:each="authority : ${myUser.getAuthorities()}"
+                                  th:text="${' ' + authority.getAuthority().toString().replaceAll('ROLE_', '')}">#roles</span>
             </div>
             <div>
                 <form th:action="@{/logout}" th:method="POST">
