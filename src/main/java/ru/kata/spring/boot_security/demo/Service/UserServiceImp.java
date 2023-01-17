@@ -57,7 +57,6 @@ public class UserServiceImp implements UserService {
     @Override
     public void update(Long id, User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setId(id);
         setUserRoles(user);
         userDao.update(user);
     }
