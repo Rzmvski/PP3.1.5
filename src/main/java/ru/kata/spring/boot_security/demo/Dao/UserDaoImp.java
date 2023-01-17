@@ -31,7 +31,7 @@ public class UserDaoImp implements UserDao {
     }
     @Override
     public Optional<User> getUserByUsername(String username) {
-        TypedQuery<User> query = entityManager.createQuery("select u from User u where username = :username", User.class)
+        TypedQuery<User> query = entityManager.createQuery("select u from User u left join fetch u.roles where u.username = :username", User.class)
                 .setParameter("username", username);
         return query.getResultList().stream().findFirst();
     }
